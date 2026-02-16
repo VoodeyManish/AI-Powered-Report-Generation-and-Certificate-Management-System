@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear Storage - RepoCerti</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #ef4444;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #dc2626;
+        }
+        .success {
+            background: #10b981;
+        }
+        .success:hover {
+            background: #059669;
+        }
+        .info {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗑️ Clear Storage & Reseed</h1>
+        <div class="info">
+            <strong>This will:</strong>
+            <ul>
+                <li>Delete all existing files from repository</li>
+                <li>Clear all user data</li>
+                <li>Recreate demo users with proper designations</li>
+                <li>Fix access control issues</li>
+            </ul>
+        </div>
+        
+        <button onclick="clearAndReseed()">Clear Storage & Reseed Demo Users</button>
+        <button class="success" onclick="goToApp()">Go to Application</button>
+        
+        <div id="status" style="margin-top: 20px; font-weight: 600;"></div>
+    </div>
+
+    <script>
+        function clearAndReseed() {
+            try {
+                // Clear all RepoCerti data
+                localStorage.removeItem('repocerti_users');
+                localStorage.removeItem('repocerti_files');
+                localStorage.removeItem('repocerti_stats');
+                localStorage.removeItem('repocerti_current_user');
+                
+                // Clear draft data
+                localStorage.removeItem('draft_html');
+                localStorage.removeItem('draft_activity');
+                localStorage.removeItem('draft_category');
+                localStorage.removeItem('draft_date');
+                localStorage.removeItem('draft_sig_l_name');
+                localStorage.removeItem('draft_sig_l_title');
+                localStorage.removeItem('draft_sig_r_name');
+                localStorage.removeItem('draft_sig_r_title');
+                
+                // Seed demo users
+                const demoUsers = [
+                    {
+                        id: 'demo-student',
+                        username: 'Demo Student',
+                        email: 'student@demo.com',
+                        password_DO_NOT_STORE_PLAINTEXT: 'password123',
+                        role: 'student'
+                    },
+                    {
+                        id: 'demo-faculty',
+                        username: 'Dr. Jane Faculty',
+                        email: 'faculty@demo.com',
+                        password_DO_NOT_STORE_PLAINTEXT: 'password123',
+                        role: 'staff',
+                        designation: 'faculty'
+                    },
+                    {
+                        id: 'demo-hod',
+                        username: 'Prof. Mark HOD',
+                        email: 'hod@demo.com',
+                        password_DO_NOT_STORE_PLAINTEXT: 'password123',
+                        role: 'staff',
+                        designation: 'hod'
+                    },
+                    {
+                        id: 'demo-dean',
+                        username: 'Dr. Dean Anderson',
+                        email: 'dean@demo.com',
+                        password_DO_NOT_STORE_PLAINTEXT: 'password123',
+                        role: 'staff',
+                        designation: 'dean'
+                    },
+                    {
+                        id: 'demo-principal',
+                        username: 'Dr. Principal Smith',
+                        email: 'principal@demo.com',
+                        password_DO_NOT_STORE_PLAINTEXT: 'password123',
+                        role: 'staff',
+                        designation: 'principal'
+                    }
+                ];
+                
+                localStorage.setItem('repocerti_users', JSON.stringify(demoUsers));
+                
+                document.getElementById('status').innerHTML = 
+                    '<div style="color: #10b981;">✅ Storage cleared and demo users reseeded successfully!<br><br>' +
+                    '<strong>Login Credentials:</strong><br>' +
+                    '• student@demo.com / password123<br>' +
+                    '• faculty@demo.com / password123<br>' +
+                    '• hod@demo.com / password123<br>' +
+                    '• dean@demo.com / password123<br>' +
+                    '• principal@demo.com / password123</div>';
+            } catch (e) {
+                document.getElementById('status').innerHTML = 
+                    '<div style="color: #ef4444;">❌ Error: ' + e.message + '</div>';
+            }
+        }
+        
+        function goToApp() {
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>

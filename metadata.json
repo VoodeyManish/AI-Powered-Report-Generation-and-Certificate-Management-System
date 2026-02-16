@@ -1,0 +1,5 @@
+{
+  "name": "repocerti",
+  "description": "An AI-powered web application for students and staff, offering real-time report generation, automated certificate information extraction, and bulk verification tools.",
+  "requestFramePermissions": []
+}
